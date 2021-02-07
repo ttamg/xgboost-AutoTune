@@ -114,7 +114,7 @@ def find_best_params(model, parameters, X_train, y_train, min_loss, scoring, n_f
                 if (len(new_array) != len(param_array)) or (new_array != param_array).any():
                     new_param_dict[param_name] = list(new_array)
         if len(new_param_dict)>0:
-            find_best_params(model, new_param_dict, X_train, y_train, min_loss, scoring, n_folds, iid, initial_score = new_score)
+            clf = find_best_params(model, new_param_dict, X_train, y_train, min_loss, scoring, n_folds, iid, initial_score = new_score)
 
     return (clf)
     
