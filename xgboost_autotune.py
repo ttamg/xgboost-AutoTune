@@ -159,7 +159,9 @@ def fit_parameters(initial_model, initial_params_dict, X_train, y_train, min_los
             
         # save new best parameters
         best_params = find_best_params(model, params, X_train, y_train, min_loss, scoring, n_folds, iid).best_params_
+        print(f"Best PARAMS - {best_params}")
         final_params = copy(model.get_params())
+        print(f"model PARAMS - {final_params}")
         model = update_model_params(model, final_params, best_params)
         print(model)
         
