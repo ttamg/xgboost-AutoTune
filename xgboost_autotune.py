@@ -97,7 +97,7 @@ def find_best_params(model, parameters, X_train, y_train, min_loss, scoring, n_f
                          
     assert (min_loss != 0) # if equal to 0 - would be calculated infinity
     print ("Find best parameters for: ", parameters)
-    clf = GridSearchCV(model, parameters, scoring=scoring, verbose=0, cv = n_folds, refit=True, iid=iid)
+    clf = GridSearchCV(model, parameters, scoring=scoring, verbose=0, cv = n_folds, refit=True)
     clf.fit(X_train, y_train)    
     
     # perform further searching if metric loss is still significant
