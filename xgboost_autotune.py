@@ -161,6 +161,7 @@ def fit_parameters(initial_model, initial_params_dict, X_train, y_train, min_los
         best_params = find_best_params(model, params, X_train, y_train, min_loss, scoring, n_folds, iid).best_params_
         final_params = copy(model.get_params())
         model = update_model_params(model, final_params, best_params)
+        print(model)
         
     # finally adjust pair (n_estimators, learning_rate)
     try:
@@ -190,6 +191,7 @@ def fit_parameters(initial_model, initial_params_dict, X_train, y_train, min_los
     except:
         pass
     model.fit(X_train, y_train) 
+    
 
     return model
 
