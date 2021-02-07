@@ -77,7 +77,7 @@ def create_new_array(param_name, param_array, position, param_requirments):
     
     
 ### perform Gridsearch over parameters and return the best model
-def find_best_params(model, parameters, X_train, y_train, min_loss, scoring, n_folds, iid, initial_socre =0):
+def find_best_params(model, parameters, X_train, y_train, min_loss, scoring, n_folds, iid, initial_score =0):
     param_requirments = {'subsample': {'max': 1, 'min': 1/len(X_train), 'type': 'float'}, # minimal value is fraction for one row
                          'colsample_bytree': {'max': 1, 'min': 1/len(X_train.columns), 'type': 'float'}, #  # minimal value is fraction for one column
                          'reg_alpha': {'max': np.inf, 'min': 0, 'type': 'float'},
@@ -102,7 +102,7 @@ def find_best_params(model, parameters, X_train, y_train, min_loss, scoring, n_f
     
     # perform further searching if metric loss is still significant
     new_score = scoring._score_func(clf.predict(X_train), y_train) # calculate new metric_value
-    if new_score-initial_socre > min_loss:
+    if new_score-initial_score > min_loss:
         new_param_dict = {}
         for param_name, param_array in parameters.items():
             if len(param_array)>1:
@@ -114,7 +114,7 @@ def find_best_params(model, parameters, X_train, y_train, min_loss, scoring, n_f
                 if (len(new_array) != len(param_array)) or (new_array != param_array).any():
                     new_param_dict[param_name] = list(new_array)
         if len(new_param_dict)>0:
-            find_best_params(model, new_param_dict, X_train, y_train, min_loss, scoring, n_folds, iid, initial_socre = new_score)
+            find_best_params(model, new_param_dict, X_train, y_train, min_loss, scoring, n_folds, iid, initial_score = new_score)
 
     return (clf)
     
